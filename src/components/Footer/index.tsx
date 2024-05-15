@@ -3,31 +3,34 @@ import { DefaultFooter } from '@ant-design/pro-components';
 import React from 'react';
 
 const Footer: React.FC = () => {
+  const defaultMessage = '云厂出品';
+  const currentYear = new Date().getFullYear();
   return (
     <DefaultFooter
       style={{
         background: 'none',
       }}
       links={[
-        {
-          key: 'Ant Design Pro',
-          title: 'Ant Design Pro',
-          href: 'https://pro.ant.design',
-          blankTarget: true,
-        },
+        // {
+        //   key: '云智能 BI',
+        //   title: '云智能 BI',
+        //   href: 'https://pro.ant.design',
+        //   blankTarget: true,
+        // },
         {
           key: 'github',
-          title: <GithubOutlined />,
-          href: 'https://github.com/ant-design/ant-design-pro',
+          title: <><GithubOutlined/> 贰拾 Github </>,
+          href: 'https://github.com/Ershi-Gu',
           blankTarget: true,
         },
         {
-          key: 'Ant Design',
-          title: 'Ant Design',
-          href: 'https://ant.design',
+          key: 'codeNav',
+          title: '湘ICP备2024062025号',
+          href: 'https://beian.miit.gov.cn',
           blankTarget: true,
         },
       ]}
+      copyright={`${currentYear} ${defaultMessage}`}
     />
   );
 };
