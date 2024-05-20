@@ -88,10 +88,7 @@ const Register: React.FC = () => {
         history.push('/user/login?redirect=' + urlParams);
         return;
       }
-      // console.log(msg);
-      // 如果失败去设置用户错误信息
-      // setUserRegisterState(msg);
-      throw new Error(`register error id = ${id}`);
+      message.error("注册失败, " + res.message);
     } catch (error) {
       const defaultRegisterFailureMessage = '注册失败，请重试！';
       console.log(error);
