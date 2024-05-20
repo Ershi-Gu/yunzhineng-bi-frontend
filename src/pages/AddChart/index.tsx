@@ -23,6 +23,7 @@ const AddChart: React.FC = () => {
     if (submitting) {
       return;
     }
+    // 清空原先 option，防止数据叠加
     setSubmitting(true);
     setChart(undefined);
     setOption(undefined);
@@ -33,7 +34,6 @@ const AddChart: React.FC = () => {
     };
     try {
       const res = await genChartByAiUsingPost(params, {}, values.file.file.originFileObj);
-      console.log('res', res)
       if (!res?.data) {
         message.error('分析失败');
       } else {
@@ -83,12 +83,13 @@ const AddChart: React.FC = () => {
                     { value: '堆叠图', label: '堆叠图' },
                     { value: '饼图', label: '饼图' },
                     { value: '雷达图', label: '雷达图' },
+                    { value: '热力图', label: '热力图' },
                   ]}
                 />
               </Form.Item>
               <Form.Item name="file" label="原始数据">
                 <Upload name="file" maxCount={1}>
-                  <Button icon={<UploadOutlined />}>上传 CSV 文件</Button>
+                  <Button icon={<UploadOutlined />}>上传 Excel 文件</Button>
                 </Upload>
               </Form.Item>
 
