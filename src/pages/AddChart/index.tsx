@@ -2,7 +2,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import {Button, Card, Col, Divider, Form, Input, message, Row, Select, Space, Spin, Upload} from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import React, { useState } from 'react';
-import {genChartByAiUsingPost} from "@/services/ershi-bi/chartController";
+import {genChartByAiAsyncMqUsingPost, genChartByAiUsingPost} from "@/services/ershi-bi/chartController";
 import ReactECharts from 'echarts-for-react';
 
 /**

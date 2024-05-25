@@ -1,9 +1,9 @@
 import {listChartVoByPageUsingPost, listMyChartVoByPageUsingPost} from '@/services/ershi-bi/chartController';
 import { useModel } from '@@/exports';
-import { Avatar, Card, List, message } from 'antd';
-import Search from 'antd/es/input/Search';
+import {Avatar, Card, List, message, Result} from 'antd';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useState } from 'react';
+import Search from "antd/es/input/Search";
 
 /**
  * 我的图表页面
@@ -13,6 +13,8 @@ const MyChartPage: React.FC = () => {
   const initSearchParams = {
     current: 1,
     pageSize: 4,
+    sortField: 'createTime',
+    sortOrder: 'desc',
   };
 
   const [searchParams, setSearchParams] = useState<API.ChartQueryRequest>({ ...initSearchParams });
@@ -31,11 +33,13 @@ const MyChartPage: React.FC = () => {
         setTotal(res.data.total ?? 0);
         // 隐藏图表的 title
         if (res.data.records) {
-          res.data.records.forEach((data) => {
-            const chartOption = JSON.parse(data.genChart ?? '{}');
-            chartOption.title = undefined;
-            data.genChart = JSON.stringify(chartOption);
-          });
+          res.data.records.forEach(data => {
+            if (data.status === 'succeed') {
+              const chartOption = JSON.parse(data.genChart ?? '{}');
+              chartOption.title = undefined;
+              data.genChart = JSON.stringify(chartOption);
+            }
+          })
         }
       } else {
         message.error('获取我的图表失败');
@@ -53,18 +57,13 @@ const MyChartPage: React.FC = () => {
   return (
     <div className="my-chart-page">
       <div>
-        <Search
-          placeholder="请输入图表名称"
-          enterButton
-          loading={loading}
-          onSearch={(value) => {
-            // 设置搜索条件
-            setSearchParams({
-              ...initSearchParams,
-              name: value,
-            });
-          }}
-        />
+        <Search placeholder="请输入图表名称" enterButton loading={loading} onSearch={(value) => {
+          // 设置搜索条件
+          setSearchParams({
+            ...initSearchParams,
+            name: value,
+          })
+        }}/>
       </div>
       <div className="margin-16" />
       <List
@@ -83,7 +82,7 @@ const MyChartPage: React.FC = () => {
               ...searchParams,
               current: page,
               pageSize,
-            });
+            })
           },
           current: searchParams.current,
           pageSize: searchParams.pageSize,
@@ -99,10 +98,43 @@ const MyChartPage: React.FC = () => {
                 title={item.name}
                 description={item.chartType ? '图表类型：' + item.chartType : undefined}
               />
-              <div style={{ marginBottom: 16 }} />
-              <p>{'分析目标：' + item.goal}</p>
-              <div style={{ marginBottom: 16 }} />
-              <ReactECharts option={item.genChart && JSON.parse(item.genChart)} />
+              <>
+                {
+                  item.status === 'wait' && <>
+                    <Result
+                      status="warning"
+                      title="待生成"
+                      subTitle={item.executeMessage ?? '当前图表生成队列繁忙，请耐心等候'}
+                    />
+                  </>
+                }
+                {
+                  item.status === 'running' && <>
+                    <Result
+                      status="info"
+                      title="图表生成中"
+                      subTitle={item.executeMessage}
+                    />
+                  </>
+                }
+                {
+                  item.status === 'succeed' && <>
+                    <div style={{ marginBottom: 16 }} />
+                    <p>{'分析目标：' + item.goal}</p>
+                    <div style={{ marginBottom: 16 }} />
+                    <ReactECharts option={item.genChart && JSON.parse(item.genChart)} />
+                  </>
+                }
+                {
+                  item.status === 'failed' && <>
+                    <Result
+                      status="error"
+                      title="图表生成失败"
+                      subTitle={item.execMessage}
+                    />
+                  </>
+                }
+              </>
             </Card>
           </List.Item>
         )}

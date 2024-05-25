@@ -88,6 +88,88 @@ export async function genChartByAiUsingPost(
   });
 }
 
+/** genChartByAIAsync POST /api/chart/gen/async */
+export async function genChartByAiAsyncUsingPost(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.genChartByAIAsyncUsingPOSTParams,
+  body: {},
+  file?: File,
+  options?: { [key: string]: any },
+) {
+  const formData = new FormData();
+
+  if (file) {
+    formData.append('file', file);
+  }
+
+  Object.keys(body).forEach((ele) => {
+    const item = (body as any)[ele];
+
+    if (item !== undefined && item !== null) {
+      if (typeof item === 'object' && !(item instanceof File)) {
+        if (item instanceof Array) {
+          item.forEach((f) => formData.append(ele, f || ''));
+        } else {
+          formData.append(ele, JSON.stringify(item));
+        }
+      } else {
+        formData.append(ele, item);
+      }
+    }
+  });
+
+  return request<API.BaseResponseBiResponse_>('/api/chart/gen/async', {
+    method: 'POST',
+    params: {
+      ...params,
+    },
+    data: formData,
+    requestType: 'form',
+    ...(options || {}),
+  });
+}
+
+/** genChartByAIAsyncMq POST /api/chart/gen/async/mq */
+export async function genChartByAiAsyncMqUsingPost(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.genChartByAIAsyncMqUsingPOSTParams,
+  body: {},
+  file?: File,
+  options?: { [key: string]: any },
+) {
+  const formData = new FormData();
+
+  if (file) {
+    formData.append('file', file);
+  }
+
+  Object.keys(body).forEach((ele) => {
+    const item = (body as any)[ele];
+
+    if (item !== undefined && item !== null) {
+      if (typeof item === 'object' && !(item instanceof File)) {
+        if (item instanceof Array) {
+          item.forEach((f) => formData.append(ele, f || ''));
+        } else {
+          formData.append(ele, JSON.stringify(item));
+        }
+      } else {
+        formData.append(ele, item);
+      }
+    }
+  });
+
+  return request<API.BaseResponseBiResponse_>('/api/chart/gen/async/mq', {
+    method: 'POST',
+    params: {
+      ...params,
+    },
+    data: formData,
+    requestType: 'form',
+    ...(options || {}),
+  });
+}
+
 /** getChartVOById GET /api/chart/get/vo */
 export async function getChartVoByIdUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
