@@ -13,7 +13,15 @@ const InfoCard: React.FC<{
   index: number;
   desc: string;
   href: string;
-}> = ({ title, href, index, desc }) => {
+}> = ({
+  title,
+  href,
+  index,
+  desc,
+  showLink = true,
+  linkText = '了解更多 >',
+  openInNewTab = true,
+}) => {
   const { useToken } = theme;
 
   const { token } = useToken();
@@ -76,9 +84,18 @@ const InfoCard: React.FC<{
       >
         {desc}
       </div>
-      <a href={href} target="_blank" rel="noreferrer">
-        了解更多 {'>'}
-      </a>
+      {showLink && (
+        <a
+          href={href}
+          target={openInNewTab ? '_blank' : '_self'}
+          rel={openInNewTab ? 'noreferrer' : undefined}
+          onClick={(e) => {
+            if (!openInNewTab) e.stopPropagation();
+          }}
+        >
+          {linkText}
+        </a>
+      )}
     </div>
   );
 };
@@ -126,8 +143,9 @@ const Welcome: React.FC = () => {
               width: '65%',
             }}
           >
-            云智能 BI 是一个整合了 umi，云智能 BI 和 ProComponents
-            的脚手架方案。致力于在设计规范和基础组件的基础上，继续向上构建，提炼出典型模板/业务组件/配套设计资源，进一步提升企业级中后台产品设计研发过程中的『用户』和『设计者』的体验。
+            云智能 BI 是一款区别于传统 BI 的数据分析平台,
+            您可以在这里使用人工智能分析您所期待的数据，同时可以选择不同的数据响应格式进行查看。
+            以及您可以在我的图表界面管理自己生成的图表。
           </p>
           <div
             style={{
@@ -138,21 +156,31 @@ const Welcome: React.FC = () => {
           >
             <InfoCard
               index={1}
-              href="https://umijs.org/docs/introduce/introduce"
-              title="了解 umi"
-              desc="umi 是一个可扩展的企业级前端应用框架,umi 以路由为基础的，同时支持配置式路由和约定式路由，保证路由的功能完备，并以此进行功能扩展。"
+              href="/user/login"
+              title="开始您的旅程"
+              showLink={true}
+              linkText="前往登录 / 注册 >" // 自定义链接文本
+              openInNewTab={false} // 不打开新页面
+              desc="想要使用云智能 BI, 您需要先有一个账号哦, 目前免费开放注册。👇点击下方快来注册吧。"
             />
             <InfoCard
               index={2}
-              title="了解 ant design"
-              href="https://ant.design"
-              desc="antd 是基于 云智能 BI 设计体系的 React UI 组件库，主要用于研发企业级中后台产品。"
+              title="前往智能分析页面"
+              href="/add_chart"
+              showLink={true}
+              linkText="前往智能分析 >" // 自定义链接文本
+              openInNewTab={false} // 不打开新页面
+              desc="我们提供同步 / 异步两种智能分析, 如果你时间充足, 可以在同步页面等待图表的返回, 即使查看; 如果您不想等待
+              可以前往异步页面, 添加数据后在我的图标界面查看结果。"
             />
             <InfoCard
               index={3}
-              title="了解 Pro Components"
-              href="https://procomponents.ant.design"
-              desc="ProComponents 是一个基于 云智能 BI 做了更高抽象的模板组件，以 一个组件就是一个页面为开发理念，为中后台开发带来更好的体验。"
+              title="了解 云出品"
+              href="https://github.com/Ershi-Gu"
+              showLink={true}
+              linkText="了解云出品 >" // 自定义链接文本
+              openInNewTab={true} // 不打开新页面
+              desc="如果您希望关注更多云出品的产品(比如 Ershi API-一款好用的 API 开放平台), 欢迎点击连接了解更多"
             />
           </div>
         </div>

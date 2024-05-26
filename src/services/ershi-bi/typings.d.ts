@@ -22,12 +22,6 @@ declare namespace API {
     message?: string;
   };
 
-  type BaseResponseInt_ = {
-    code?: number;
-    data?: number;
-    message?: string;
-  };
-
   type BaseResponseLoginUserVO_ = {
     code?: number;
     data?: LoginUserVO;
@@ -52,18 +46,6 @@ declare namespace API {
     message?: string;
   };
 
-  type BaseResponsePagePost_ = {
-    code?: number;
-    data?: PagePost_;
-    message?: string;
-  };
-
-  type BaseResponsePagePostVO_ = {
-    code?: number;
-    data?: PagePostVO_;
-    message?: string;
-  };
-
   type BaseResponsePageUser_ = {
     code?: number;
     data?: PageUser_;
@@ -73,12 +55,6 @@ declare namespace API {
   type BaseResponsePageUserVO_ = {
     code?: number;
     data?: PageUserVO_;
-    message?: string;
-  };
-
-  type BaseResponsePostVO_ = {
-    code?: number;
-    data?: PostVO;
     message?: string;
   };
 
@@ -202,11 +178,6 @@ declare namespace API {
     id?: number;
   };
 
-  type getPostVOByIdUsingGETParams = {
-    /** id */
-    id?: number;
-  };
-
   type getUserByIdUsingGETParams = {
     /** id */
     id?: number;
@@ -258,32 +229,6 @@ declare namespace API {
     total?: number;
   };
 
-  type PagePost_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
-    records?: Post[];
-    searchCount?: boolean;
-    size?: number;
-    total?: number;
-  };
-
-  type PagePostVO_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
-    records?: PostVO[];
-    searchCount?: boolean;
-    size?: number;
-    total?: number;
-  };
-
   type PageUser_ = {
     countId?: string;
     current?: number;
@@ -308,91 +253,6 @@ declare namespace API {
     searchCount?: boolean;
     size?: number;
     total?: number;
-  };
-
-  type Post = {
-    content?: string;
-    createTime?: string;
-    favourNum?: number;
-    id?: number;
-    isDelete?: number;
-    tags?: string;
-    thumbNum?: number;
-    title?: string;
-    updateTime?: string;
-    userId?: number;
-  };
-
-  type PostAddRequest = {
-    content?: string;
-    tags?: string[];
-    title?: string;
-  };
-
-  type PostEditRequest = {
-    content?: string;
-    id?: number;
-    tags?: string[];
-    title?: string;
-  };
-
-  type PostFavourAddRequest = {
-    postId?: number;
-  };
-
-  type PostFavourQueryRequest = {
-    current?: number;
-    pageSize?: number;
-    postQueryRequest?: PostQueryRequest;
-    sortField?: string;
-    sortOrder?: string;
-    userId?: number;
-  };
-
-  type PostQueryRequest = {
-    content?: string;
-    current?: number;
-    favourUserId?: number;
-    id?: number;
-    notId?: number;
-    orTags?: string[];
-    pageSize?: number;
-    searchText?: string;
-    sortField?: string;
-    sortOrder?: string;
-    tags?: string[];
-    title?: string;
-    userId?: number;
-  };
-
-  type PostThumbAddRequest = {
-    postId?: number;
-  };
-
-  type PostUpdateRequest = {
-    content?: string;
-    id?: number;
-    tags?: string[];
-    title?: string;
-  };
-
-  type PostVO = {
-    content?: string;
-    createTime?: string;
-    favourNum?: number;
-    hasFavour?: boolean;
-    hasThumb?: boolean;
-    id?: number;
-    tagList?: string[];
-    thumbNum?: number;
-    title?: string;
-    updateTime?: string;
-    user?: UserVO;
-    userId?: number;
-  };
-
-  type uploadFileUsingPOSTParams = {
-    biz?: string;
   };
 
   type User = {

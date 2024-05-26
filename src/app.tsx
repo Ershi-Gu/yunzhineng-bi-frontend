@@ -9,6 +9,8 @@ import {getLoginUserUsingGet} from "@/services/ershi-bi/userController";
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
+const welcomePath = '/welcome';
+
 
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
@@ -54,7 +56,8 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     onPageChange: () => {
       const { location } = history;
       // 如果没有登录，重定向到 login
-      if (!initialState?.currentUser && location.pathname !== loginPath) {
+      if (!initialState?.currentUser && location.pathname !== loginPath
+          && location.pathname !== welcomePath) {
         history.push(loginPath);
       }
     },
@@ -122,6 +125,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
  */
 export const request = {
   ...errorConfig,
+  // baseURL: 'http://bi-backend.guersh.cn:9091',
   baseURL: 'http://localhost:8081',
   withCredentials: true,
 };
