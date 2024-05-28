@@ -6,6 +6,7 @@ import { Link, history } from '@umijs/max';
 import { errorConfig } from './requestErrorConfig';
 import Settings from "../config/defaultSettings";
 import {getLoginUserUsingGet} from "@/services/ershi-bi/userController";
+import logo from "../public/logo.svg";
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -115,6 +116,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       );
     },
     ...initialState?.settings,
+    logo: <img src={logo} />,
   };
 };
 
@@ -125,7 +127,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
  */
 export const request = {
   ...errorConfig,
-  // baseURL: 'http://bi-backend.guersh.cn:9091',
-  baseURL: 'http://localhost:8081',
+  baseURL: 'http://bi-backend.guershi.cn:9091',
+  // baseURL: 'http://localhost:8081',
   withCredentials: true,
 };

@@ -1,4 +1,4 @@
-import {genChartByAiAsyncMqUsingPost} from '@/services/ershi-bi/chartController';
+import { genChartByAiAsyncMqUsingPost } from '@/services/ershi-bi/chartController';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Card, Form, Input, message, Select, Space, Upload } from 'antd';
 import { useForm } from 'antd/es/form/Form';
@@ -32,13 +32,13 @@ const AddChartAsync: React.FC = () => {
       const res = await genChartByAiAsyncMqUsingPost(params, {}, values.file.file.originFileObj);
       // const res = await genChartByAiAsyncMqUsingPOST(params, {}, values.file.file.originFileObj);
       if (!res?.data) {
-        message.error('分析失败');
+        message.error('分析失败,' + res.message);
       } else {
         message.success('分析任务提交成功，稍后请在我的图表页面查看');
         form.resetFields();
       }
     } catch (e: any) {
-      message.error('分析失败，' + e.message);
+      message.error('分析失败,' + e.message);
     }
     setSubmitting(false);
   };
@@ -79,7 +79,7 @@ const AddChartAsync: React.FC = () => {
           </Form.Item>
           <Form.Item name="file" label="原始数据">
             <Upload name="file" maxCount={1}>
-              <Button icon={<UploadOutlined />}>上传 CSV 文件</Button>
+              <Button icon={<UploadOutlined />}>上传 Excel 文件</Button>
             </Upload>
           </Form.Item>
 

@@ -11,15 +11,15 @@ export default [
       { name: '注册', path: '/user/register', component: './User/Register' },
     ],
   },
-  {
-    path: '/admin',
-    name: '管理页',
-    icon: 'crown',
-    access: 'canAdmin',
-    routes: [
-      { path: '/admin', redirect: '/admin/sub-page' },
-    ],
-  },
+  // {
+  //   path: '/admin',
+  //   name: '管理页',
+  //   icon: 'crown',
+  //   access: 'canAdmin',
+  //   routes: [
+  //     { path: '/admin', redirect: '/admin/sub-page' },
+  //   ],
+  // },
   { path: '/', redirect: '/welcome' },
   { path: '*', layout: false, component: './404' },
 ];
